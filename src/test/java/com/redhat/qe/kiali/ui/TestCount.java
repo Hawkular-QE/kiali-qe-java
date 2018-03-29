@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.ui.tests;
+package com.redhat.qe.kiali.ui;
 
 import java.util.concurrent.TimeUnit;
 

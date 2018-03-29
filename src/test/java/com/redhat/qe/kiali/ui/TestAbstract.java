@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.ui.tests;
+package com.redhat.qe.kiali.ui;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -12,13 +12,11 @@ import org.testng.annotations.BeforeTest;
 
 import com.redhat.qe.kiali.model.KeyValue;
 import com.redhat.qe.kiali.rest.KialiRestClient;
-import com.redhat.qe.kiali.ui.KialiWebDriver;
 import com.redhat.qe.kiali.ui.pages.RootPage;
 
 /**
  * @author Jeeva Kandasamy (jkandasa)
  */
-
 public abstract class TestAbstract {
     protected RootPage rootPage;
     protected boolean reloadPageBeforeMethod = true;

@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.ui.tests;
+package com.redhat.qe.kiali.ui.listeners;
 
 import java.io.File;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,6 +11,12 @@ import org.testng.ISuiteListener;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
+
+import com.redhat.qe.kiali.ui.Driver;
+import com.redhat.qe.kiali.ui.DriverFactory;
+import com.redhat.qe.kiali.ui.TestCount;
+import com.redhat.qe.kiali.ui.bugtracker.Blocker;
+import com.redhat.qe.kiali.ui.bugtracker.BugTracker;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -118,6 +124,25 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         }
         // call tearDown tasks
         DriverFactory.tearDownAll();
+
+        // known issues and current status
+        StringBuilder knownIssues = new StringBuilder();
+        for (String key : BugTracker.getBlockers().keySet()) {
+            Blocker blocker = BugTracker.getBlockers().get(key);
+            if (blocker.isBlocked()) {
+                knownIssues.append("\n\nName: ").append(blocker.getName());
+                knownIssues.append("\n--------------------------------------------------------------");
+                for (String issueId : blocker.getList().keySet()) {
+                    knownIssues.append("\n").append(issueId).append(": ").append(blocker.getList().get(issueId));
+                }
+            }
+        }
+        if (knownIssues.length() > 0) {
+            _logger.info("\n\n************* BLOCKING ISSUES STATUS *************************"
+                    + "{}"
+                    + "\n**************************************************************\n",
+                    knownIssues.toString());
+        }
     }
 
     // test listeners

@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.ui.tests;
+package com.redhat.qe.kiali.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,7 +14,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 
 import com.redhat.qe.kiali.rest.KialiRestClient;
-import com.redhat.qe.kiali.ui.KialiWebDriver;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -1,0 +1,14 @@
+--- # blockers list
+# bug tracker tools details
+bug-trackers:
+  jira:
+    url: https://issues.jboss.org
+    non-blocking-list:
+      - ready
+
+# blockers
+blockers:
+  com.redhat.qe.kiali.ui.tests.menu.TestMenu.testToggle:
+    - JR:KIALI-429
+  com.redhat.qe.kiali.ui.tests.menu.TestNavbar.testAbout:
+    - JR:KIALI-430

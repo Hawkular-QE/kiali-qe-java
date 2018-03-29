@@ -31,7 +31,7 @@ public abstract class UIAbstract extends CommonUtils {
     }
 
     protected List<String> children(String parentIdentifier, String childIdentifier) {
-        _logger.debug("identifier[parent:{{}}, child:{{}}]", parentIdentifier, childIdentifier);
+        _logger.trace("identifier[parent:{{}}, child:{{}}]", parentIdentifier, childIdentifier);
         WebElement parent = element(parentIdentifier);
         ArrayList<String> items = new ArrayList<String>();
         for (WebElement el : parent.findElements(By.xpath(childIdentifier))) {
@@ -41,13 +41,13 @@ public abstract class UIAbstract extends CommonUtils {
     }
 
     protected WebElement element(String identifier) {
-        _logger.debug("identifier:{{}}", identifier);
+        _logger.trace("identifier:{{}}", identifier);
         return driver.findElement(By.xpath(identifier));
     }
 
     protected WebElement element(String parentIdentifier, String childIdentifier, Object... arguments) {
         childIdentifier = format(childIdentifier, arguments);
-        _logger.debug("identifier[parent:{{}}, child:{{}}]", parentIdentifier, childIdentifier);
+        _logger.trace("identifier[parent:{{}}, child:{{}}]", parentIdentifier, childIdentifier);
         if (parentIdentifier != null) {
             WebElement parent = element(parentIdentifier);
             return parent.findElement(By.xpath(childIdentifier));
@@ -59,25 +59,25 @@ public abstract class UIAbstract extends CommonUtils {
 
     protected WebElement element(WebElement parent, String childIdentifier, Object... arguments) {
         childIdentifier = format(childIdentifier, arguments);
-        _logger.debug("identifier[parent:{{}}, child:{{}}]", parent.toString(), childIdentifier);
+        _logger.trace("identifier[parent:{{}}, child:{{}}]", parent.toString(), childIdentifier);
         return parent.findElement(By.xpath(childIdentifier));
     }
 
     protected List<WebElement> elements(String identifier) {
-        _logger.debug("identifier:{{}}", identifier);
+        _logger.trace("identifier:{{}}", identifier);
         return driver.findElements(By.xpath(identifier));
     }
 
     protected List<WebElement> elements(String parentIdentifier, String childIdentifier, Object... arguments) {
         childIdentifier = format(childIdentifier, arguments);
-        _logger.debug("identifier[parent:{{}}, child:{{}}]", parentIdentifier, childIdentifier);
+        _logger.trace("identifier[parent:{{}}, child:{{}}]", parentIdentifier, childIdentifier);
         WebElement parent = element(parentIdentifier);
         return parent.findElements(By.xpath(childIdentifier));
     }
 
     protected List<WebElement> elements(WebElement parent, String childIdentifier, Object... arguments) {
         childIdentifier = format(childIdentifier, arguments);
-        _logger.debug("identifier[parent:{{}}, child:{{}}]", parent.toString(), childIdentifier);
+        _logger.trace("identifier[parent:{{}}, child:{{}}]", parent.toString(), childIdentifier);
         return parent.findElements(By.xpath(childIdentifier));
     }
 
@@ -124,7 +124,7 @@ public abstract class UIAbstract extends CommonUtils {
         if (arguments != null && childIdentifier.length() > 0) {
             childIdentifier = format(childIdentifier, arguments);
         }
-        _logger.debug("identifier[parent:{{}}, child:{{}}], waitTime:{}ms",
+        _logger.trace("identifier[parent:{{}}, child:{{}}], waitTime:{}ms",
                 parentIdentifier, childIdentifier, waitTime);
         WebElement parent = null;
         if (parentIdentifier != null) {
