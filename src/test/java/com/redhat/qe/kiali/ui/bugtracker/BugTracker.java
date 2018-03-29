@@ -59,7 +59,7 @@ public class BugTracker {
                 loadClients();
                 // load non-block list
                 List<String> jiraNonBlockList = (List<String>) TestUtils.getValue(
-                        yamlData, "bug-trackers.jira.non-block-list", new ArrayList<String>());
+                        yamlData, "bug-trackers.jira.non-blocking-list", new ArrayList<String>());
                 // load tests
                 HashMap<String, Object> tests = (HashMap<String, Object>) TestUtils.getValue(
                         yamlData, "blockers", new HashMap<String, Object>());

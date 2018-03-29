@@ -3,7 +3,7 @@
 bug-trackers:
   jira:
     url: https://issues.jboss.org
-    non-block-list:
+    non-blocking-list:
       - ready
 
 # blockers
