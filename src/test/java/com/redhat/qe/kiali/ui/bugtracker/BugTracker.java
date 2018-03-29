@@ -70,9 +70,15 @@ public class BugTracker {
                     for (String bugId : (List<String>) tests.get(test)) {
                         // Jira issue
                         if (bugId.startsWith(IDENTIFIER_JIRIA)) {
-                            String currentState = (String) TestUtils.getValue(
-                                    jiraCliet.issue(bugId.replaceFirst(IDENTIFIER_JIRIA, "").trim()),
-                                    "fields.status.name", null);
+                            String bugIdFinal = bugId.replaceFirst(IDENTIFIER_JIRIA, "").trim();
+                            Map<String, Object> bugData = jiraCliet.issue(bugIdFinal);
+                            // get status from "fields.resolution"
+                            String currentState = (String) TestUtils.getValue(bugData, "fields.resolution", null);
+                            // if "fields.resolution" is null, get it from "fields.status.name" 
+                            currentState = (String) TestUtils.getValue(bugData, "fields.status.name", null);
+                            if (currentState == null) {
+                                currentState = "Unable to get the status";
+                            }
                             bugList.put(bugId, currentState.trim().toLowerCase());
                         }
                     }
