@@ -1,7 +1,6 @@
-package com.redhat.qe.kiali.ui.tests;
+package com.redhat.qe.kiali.ui;
 
 import com.redhat.qe.kiali.rest.KialiRestClient;
-import com.redhat.qe.kiali.ui.KialiWebDriver;
 
 import lombok.Builder;
 import lombok.Getter;

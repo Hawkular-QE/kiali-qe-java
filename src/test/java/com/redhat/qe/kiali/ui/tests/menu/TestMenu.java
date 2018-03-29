@@ -6,9 +6,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.redhat.qe.kiali.ui.TestAbstract;
 import com.redhat.qe.kiali.ui.enums.RootPageEnum.MAIN_MENU;
 import com.redhat.qe.kiali.ui.pages.RootPage;
-import com.redhat.qe.kiali.ui.tests.TestAbstract;
 
 import lombok.extern.slf4j.Slf4j;
 

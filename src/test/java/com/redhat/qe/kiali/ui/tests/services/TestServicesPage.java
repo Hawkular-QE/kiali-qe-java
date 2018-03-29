@@ -10,6 +10,7 @@ import com.redhat.qe.kiali.model.KeyValue;
 import com.redhat.qe.kiali.model.Namespace;
 import com.redhat.qe.kiali.model.SortOption;
 import com.redhat.qe.kiali.model.services.Service;
+import com.redhat.qe.kiali.ui.TestAbstract;
 import com.redhat.qe.kiali.ui.components.Filter;
 import com.redhat.qe.kiali.ui.components.Pagination;
 import com.redhat.qe.kiali.ui.components.SortDropdown;
@@ -17,7 +18,6 @@ import com.redhat.qe.kiali.ui.enums.PaginationEnum.PERPAGE;
 import com.redhat.qe.kiali.ui.enums.ServicesPageEnum.FILTER;
 import com.redhat.qe.kiali.ui.enums.ServicesPageEnum.SORT;
 import com.redhat.qe.kiali.ui.pages.ServicesPage;
-import com.redhat.qe.kiali.ui.tests.TestAbstract;
 
 import lombok.extern.slf4j.Slf4j;
 
