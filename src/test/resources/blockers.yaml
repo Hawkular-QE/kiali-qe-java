@@ -4,7 +4,8 @@ bug-trackers:
   jira:
     url: https://issues.jboss.org
     non-blocking-list:
-      - ready
+      - done
+      - awaiting release
 
 # blockers
 blockers:
