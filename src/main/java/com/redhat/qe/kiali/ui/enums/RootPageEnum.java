@@ -8,7 +8,8 @@ public class RootPageEnum {
     public enum MAIN_MENU implements IEnumString {
         GRAPH("Graph"),
         SERVICES("Services"),
-        ISTIO_MIXER("Istio Mixer");
+        ISTIO_MIXER("Istio Mixer"),
+        DISTRIBUTED_TRACING("Distributed Tracing");
 
         public static MAIN_MENU fromText(String text) {
             return (MAIN_MENU) EnumStringHelper.fromText(text, values());
