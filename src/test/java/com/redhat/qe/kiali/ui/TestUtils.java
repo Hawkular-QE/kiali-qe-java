@@ -63,4 +63,8 @@ public class TestUtils {
         }
         return value != null ? value : defaultValue;
     }
+
+    public static String normalizeSpace(String source, String replacement) {
+        return source.replaceAll("\\s+", replacement).trim();
+    }
 }
