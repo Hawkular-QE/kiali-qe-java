@@ -64,6 +64,7 @@ public class BugTracker {
                 // load non-block list
                 List<String> jiraNonBlockList = (List<String>) TestUtils.getValue(
                         yamlData, "bug-trackers.jira.non-blocking-list", new ArrayList<String>());
+                jiraNonBlockList = normalizeList(jiraNonBlockList);
                 // load tests
                 HashMap<String, Object> tests = (HashMap<String, Object>) TestUtils.getValue(
                         yamlData, "blockers", new HashMap<String, Object>());
@@ -80,10 +81,11 @@ public class BugTracker {
                             String currentState = (String) TestUtils.getValue(bugData, "fields.resolution", null);
                             // if "fields.resolution" is null, get it from "fields.status.name" 
                             currentState = (String) TestUtils.getValue(bugData, "fields.status.name", null);
+                            currentState = normalizeString(currentState);
                             if (currentState == null) {
                                 currentState = "Unable to get the status";
                             }
-                            bugList.put(bugId, currentState.trim().toLowerCase());
+                            bugList.put(bugId, currentState);
                         }
                     }
                     boolean isBlocked = false;
@@ -104,6 +106,21 @@ public class BugTracker {
                 _logger.error("Exception, ", ex);
             }
         }
+    }
+
+    private static List<String> normalizeList(List<String> list) {
+        List<String> newList = new ArrayList<String>();
+        for (String data : list) {
+            newList.add(normalizeString(data));
+        }
+        return newList;
+    }
+
+    private static String normalizeString(String source) {
+        if (source != null) {
+            return TestUtils.normalizeSpace(source, "_").toLowerCase();
+        }
+        return source;
     }
 
     @SuppressWarnings("unchecked")

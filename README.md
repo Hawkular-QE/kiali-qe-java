@@ -16,7 +16,8 @@ bug-trackers:
   jira:
     url: https://issues.jboss.org
     non-blocking-list:
-      - ready
+      - awaiting_release
+      - done
 
 # blockers
 blockers:
@@ -27,7 +28,7 @@ blockers:
 ```
 ##### definitions:
 * `bug-trackers`: define jira tracking tool details. For now supports only for jira
-* `non-blocking-list`: list of status key words, say this issue is resolved and ready to test. This keys words should be in small case. 
+* `non-blocking-list`: list of status key words, say this issue is resolved and ready to test.
 * `blockers`: we can specify `testClass` name or `testMethod`(fully qualified name) as a key and a list of bugs/issues details to block this test. If we specify `className`, it blocks all the methods on this class.
 
 ##### How to supply this yaml file?

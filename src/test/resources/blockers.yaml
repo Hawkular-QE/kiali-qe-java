@@ -5,7 +5,7 @@ bug-trackers:
     url: https://issues.jboss.org
     non-blocking-list:
       - done
-      - awaiting release
+      - awaiting_release
 
 # blockers
 blockers:
