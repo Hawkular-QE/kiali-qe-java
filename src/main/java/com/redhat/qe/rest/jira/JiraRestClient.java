@@ -51,10 +51,15 @@ public class JiraRestClient extends KialiHttpClient {
         return list;
     }
 
-    @SuppressWarnings("unchecked")
     public Map<String, Object> issue(String idOrName) {
+        return issue(idOrName, null);
+    }
+
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> issue(String idOrName, Map<String, Object> queryParameters) {
         KialiHttpResponse response = doGet(
                 baseUrl + MessageFormat.format("/rest/api/latest/issue/{0}", idOrName),
+                queryParameters,
                 header, STATUS_CODE.OK.getCode());
         return (Map<String, Object>) readValue(response.getEntity(),
                 mapResolver().get(Map.class, String.class, Object.class));
