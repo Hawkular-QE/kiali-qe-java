@@ -27,6 +27,8 @@ public class BugTracker {
     private static final String IDENTIFIER_JIRIA = "JR:";
     private static final String KEY_BLOCKERS = "blockers";
 
+    private static Map<String, Object> jiraQueryParms = new HashMap<String, Object>();
+
     public static Map<String, Blocker> getBlockers() {
         if (BLOCKERS == null) {
             BLOCKERS = new HashMap<String, Blocker>();
@@ -38,6 +40,8 @@ public class BugTracker {
     @SuppressWarnings("unchecked")
     public static void initialize() {
         if (yamlData == null) {
+            // update query parameters
+            jiraQueryParms.put("fields", "resolution,status");
             try {
                 // update yaml file
                 yamlFile = TestUtils.getProperty(KEY_BLOCKERS);
@@ -71,7 +75,7 @@ public class BugTracker {
                         // Jira issue
                         if (bugId.startsWith(IDENTIFIER_JIRIA)) {
                             String bugIdFinal = bugId.replaceFirst(IDENTIFIER_JIRIA, "").trim();
-                            Map<String, Object> bugData = jiraCliet.issue(bugIdFinal);
+                            Map<String, Object> bugData = jiraCliet.issue(bugIdFinal, jiraQueryParms);
                             // get status from "fields.resolution"
                             String currentState = (String) TestUtils.getValue(bugData, "fields.resolution", null);
                             // if "fields.resolution" is null, get it from "fields.status.name" 
