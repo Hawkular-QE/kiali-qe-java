@@ -33,5 +33,5 @@ blockers:
 ###### How to supply this yaml file?
 We can supply this yaml file in different ways,
 * Source code: update `src/test/resources/blockers.yaml` file.
-* Java properties: `-Dblockers=/tmp/blockers.yaml`
+* Java properties: `-Dblockers="/tmp/blockers.yaml"`
 * Environment variable: `export blocers="/tmp/blockers.yaml"`
