@@ -78,7 +78,7 @@ public class BugTracker {
                             String bugIdFinal = bugId.replaceFirst(IDENTIFIER_JIRIA, "").trim();
                             Map<String, Object> bugData = jiraCliet.issue(bugIdFinal, jiraQueryParms);
                             // get status from "fields.resolution"
-                            String currentState = (String) TestUtils.getValue(bugData, "fields.resolution", null);
+                            String currentState = (String) TestUtils.getValue(bugData, "fields.resolution.name", null);
                             // if "fields.resolution" is null, get it from "fields.status.name" 
                             currentState = (String) TestUtils.getValue(bugData, "fields.status.name", null);
                             currentState = normalizeString(currentState);
