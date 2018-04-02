@@ -80,7 +80,9 @@ public class BugTracker {
                             // get status from "fields.resolution"
                             String currentState = (String) TestUtils.getValue(bugData, "fields.resolution.name", null);
                             // if "fields.resolution" is null, get it from "fields.status.name" 
-                            currentState = (String) TestUtils.getValue(bugData, "fields.status.name", null);
+                            if (currentState == null) {
+                                currentState = (String) TestUtils.getValue(bugData, "fields.status.name", null);
+                            }
                             currentState = normalizeString(currentState);
                             if (currentState == null) {
                                 currentState = "Unable to get the status";
