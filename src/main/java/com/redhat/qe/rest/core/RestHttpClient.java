@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.rest.core;
+package com.redhat.qe.rest.core;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -39,9 +39,9 @@ import org.apache.http.ssl.SSLContextBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.redhat.qe.kiali.rest.core.typeresolvers.CollectionJavaTypeResolver;
-import com.redhat.qe.kiali.rest.core.typeresolvers.MapJavaTypeResolver;
-import com.redhat.qe.kiali.rest.core.typeresolvers.SimpleJavaTypeResolver;
+import com.redhat.qe.rest.core.typeresolvers.CollectionJavaTypeResolver;
+import com.redhat.qe.rest.core.typeresolvers.MapJavaTypeResolver;
+import com.redhat.qe.rest.core.typeresolvers.SimpleJavaTypeResolver;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,7 +50,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-public class KialiHttpClient {
+public class RestHttpClient {
 
     // https://httpstatuses.com/
     public enum STATUS_CODE {
@@ -81,18 +81,18 @@ public class KialiHttpClient {
 
     private CloseableHttpClient client = null;
     private RequestConfig customRequestConfig = null;
-    private ObjectMapper mapper = new ClientObjectMapper();
+    private ObjectMapper mapper = new RestObjectMapper();
     private SimpleJavaTypeResolver simpleJavaTypeResolver = new SimpleJavaTypeResolver();
     private CollectionJavaTypeResolver collectionJavaTypeResolver = new CollectionJavaTypeResolver();
     private MapJavaTypeResolver mapJavaTypeResolver = new MapJavaTypeResolver();
 
     // constructors
 
-    public KialiHttpClient() {
+    public RestHttpClient() {
         client = HttpClientBuilder.create().build();
     }
 
-    public KialiHttpClient(TRUST_HOST_TYPE trustHostType) {
+    public RestHttpClient(TRUST_HOST_TYPE trustHostType) {
         customRequestConfig = RequestConfig.custom()
                 .setCookieSpec(CookieSpecs.STANDARD)
                 .build();
@@ -158,11 +158,11 @@ public class KialiHttpClient {
         return simpleJavaTypeResolver;
     }
 
-    private KialiHttpResponse execute(HttpUriRequest request) {
+    private RestHttpResponse execute(HttpUriRequest request) {
         CloseableHttpResponse response = null;
         try {
             response = client.execute(request);
-            return KialiHttpResponse.get(request.getURI(), response);
+            return RestHttpResponse.get(request.getURI(), response);
         } catch (Exception ex) {
             _logger.debug("Exception,", ex);
             throw new RuntimeException(
@@ -178,7 +178,7 @@ public class KialiHttpClient {
         }
     }
 
-    public String getHeader(KialiHttpResponse response, String name) {
+    public String getHeader(RestHttpResponse response, String name) {
         Header[] headers = response.getHeaders();
         for (int index = 0; index < headers.length; index++) {
             Header header = headers[index];
@@ -226,7 +226,7 @@ public class KialiHttpClient {
     }
 
     // validate response
-    public void validateResponse(KialiHttpResponse response, Integer expectedResponseCode) {
+    public void validateResponse(RestHttpResponse response, Integer expectedResponseCode) {
         _logger.debug("{}", response);
         if (expectedResponseCode != null) {
             if (!response.getResponseCode().equals(expectedResponseCode)) {
@@ -239,40 +239,40 @@ public class KialiHttpClient {
     // actual HTTP RESUEST methods
 
     // HTTP DELETE request
-    protected KialiHttpResponse doDelete(String url, Integer expectedResponseCode) {
-        return doDelete(url, KialiHeader.getDefault(), expectedResponseCode);
+    protected RestHttpResponse doDelete(String url, Integer expectedResponseCode) {
+        return doDelete(url, RestHeader.getDefault(), expectedResponseCode);
     }
 
     // HTTP DELETE request - primary method
-    protected KialiHttpResponse doDelete(String url, KialiHeader header, Integer expectedResponseCode) {
+    protected RestHttpResponse doDelete(String url, RestHeader header, Integer expectedResponseCode) {
         HttpDelete delete = new HttpDelete(url);
         header.updateHeaders(delete);
-        KialiHttpResponse httpResponse = execute(delete);
+        RestHttpResponse httpResponse = execute(delete);
         // validate response
         validateResponse(httpResponse, expectedResponseCode);
         return httpResponse;
     }
 
     // HTTP GET request
-    protected KialiHttpResponse doGet(String url, Integer expectedResponseCode) {
-        return doGet(url, null, KialiHeader.getDefault(), expectedResponseCode);
+    protected RestHttpResponse doGet(String url, Integer expectedResponseCode) {
+        return doGet(url, null, RestHeader.getDefault(), expectedResponseCode);
     }
 
     // GET, POST, PUT, DELETE methods start
 
     // HTTP GET request
-    protected KialiHttpResponse doGet(String url, Map<String, Object> queryParameters, Integer expectedResponseCode) {
-        return doGet(url, queryParameters, KialiHeader.getDefault(), expectedResponseCode);
+    protected RestHttpResponse doGet(String url, Map<String, Object> queryParameters, Integer expectedResponseCode) {
+        return doGet(url, queryParameters, RestHeader.getDefault(), expectedResponseCode);
     }
 
     // HTTP GET request - primary method
-    protected KialiHttpResponse doGet(String url, Map<String, Object> queryParameters,
-            KialiHeader header, Integer expectedResponseCode) {
+    protected RestHttpResponse doGet(String url, Map<String, Object> queryParameters,
+            RestHeader header, Integer expectedResponseCode) {
         try {
             HttpGet get = new HttpGet(getURI(url, queryParameters));
             header.updateHeaders(get);
             // execute
-            KialiHttpResponse httpResponse = execute(get);
+            RestHttpResponse httpResponse = execute(get);
             // validate response
             validateResponse(httpResponse, expectedResponseCode);
             return httpResponse;
@@ -284,19 +284,19 @@ public class KialiHttpClient {
     }
 
     // HTTP GET request
-    protected KialiHttpResponse doGet(String url, KialiHeader header, Integer expectedResponseCode) {
+    protected RestHttpResponse doGet(String url, RestHeader header, Integer expectedResponseCode) {
         return doGet(url, null, header, expectedResponseCode);
     }
 
     // HTTP POST request - primary method
-    protected KialiHttpResponse doPost(String url, Map<String, Object> queryParameters,
-            KialiHeader header, HttpEntity entity, Integer expectedResponseCode) {
+    protected RestHttpResponse doPost(String url, Map<String, Object> queryParameters,
+            RestHeader header, HttpEntity entity, Integer expectedResponseCode) {
         try {
             HttpPost post = new HttpPost(getURI(url, queryParameters));
             header.updateHeaders(post);
             post.setEntity(entity);
             // execute
-            KialiHttpResponse httpResponse = execute(post);
+            RestHttpResponse httpResponse = execute(post);
             // validate response
             validateResponse(httpResponse, expectedResponseCode);
             return httpResponse;
@@ -309,15 +309,15 @@ public class KialiHttpClient {
     }
 
     // HTTP POST request
-    protected KialiHttpResponse doPost(String url, Map<String, Object> queryParameters,
-            KialiHeader header, Integer expectedResponseCode) {
+    protected RestHttpResponse doPost(String url, Map<String, Object> queryParameters,
+            RestHeader header, Integer expectedResponseCode) {
         StringEntity stringEntity = null;
         return doPost(url, queryParameters, header, stringEntity, expectedResponseCode);
     }
 
     // HTTP POST request
-    protected KialiHttpResponse doPost(String url, Map<String, Object> queryParameters,
-            KialiHeader header, String entity, Integer expectedResponseCode) {
+    protected RestHttpResponse doPost(String url, Map<String, Object> queryParameters,
+            RestHeader header, String entity, Integer expectedResponseCode) {
         _logger.debug("Entity: {}", entity);
         try {
             return doPost(url, queryParameters, header, new StringEntity(entity), expectedResponseCode);
@@ -330,31 +330,31 @@ public class KialiHttpClient {
     }
 
     // HTTP POST request
-    protected KialiHttpResponse doPost(String url, KialiHeader header, String entity,
+    protected RestHttpResponse doPost(String url, RestHeader header, String entity,
             Integer expectedResponseCode) {
         return doPost(url, null, header, entity, expectedResponseCode);
     }
 
     // HTTP PUT request
-    protected KialiHttpResponse doPut(String url, KialiHeader header, HttpEntity entity, Integer expectedResponseCode) {
+    protected RestHttpResponse doPut(String url, RestHeader header, HttpEntity entity, Integer expectedResponseCode) {
         HttpPut put = new HttpPut(url);
         header.updateHeaders(put);
         put.setEntity(entity);
         // execute
-        KialiHttpResponse httpResponse = execute(put);
+        RestHttpResponse httpResponse = execute(put);
         // validate response
         validateResponse(httpResponse, expectedResponseCode);
         return httpResponse;
     }
 
     // HTTP PUT request
-    protected KialiHttpResponse doPut(String url, KialiHeader header, Integer expectedResponseCode) {
+    protected RestHttpResponse doPut(String url, RestHeader header, Integer expectedResponseCode) {
         StringEntity stringEntity = null;
         return doPut(url, header, stringEntity, expectedResponseCode);
     }
 
     // HTTP PUT request
-    protected KialiHttpResponse doPut(String url, KialiHeader header, String entity, Integer expectedResponseCode) {
+    protected RestHttpResponse doPut(String url, RestHeader header, String entity, Integer expectedResponseCode) {
         _logger.debug("Entity: {}", entity);
         try {
             return doPut(url, header, new StringEntity(entity), expectedResponseCode);

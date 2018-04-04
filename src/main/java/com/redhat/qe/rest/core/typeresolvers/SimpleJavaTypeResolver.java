@@ -1,8 +1,8 @@
-package com.redhat.qe.kiali.rest.core.typeresolvers;
+package com.redhat.qe.rest.core.typeresolvers;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.redhat.qe.kiali.rest.core.ClientObjectMapper;
+import com.redhat.qe.rest.core.RestObjectMapper;
 
 /**
  * @author Jeeva Kandasamy (jkandasa)
@@ -12,7 +12,7 @@ public class SimpleJavaTypeResolver {
     private final ObjectMapper objectMapper;
 
     public SimpleJavaTypeResolver() {
-        this.objectMapper = new ClientObjectMapper();
+        this.objectMapper = new RestObjectMapper();
     }
 
     /**

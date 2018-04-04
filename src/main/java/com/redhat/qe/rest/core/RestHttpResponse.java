@@ -1,13 +1,14 @@
-package com.redhat.qe.kiali.rest.core;
+package com.redhat.qe.rest.core;
 
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 
-import com.redhat.qe.kiali.rest.core.KialiHttpClient.STATUS_CODE;
+import com.redhat.qe.rest.core.RestHttpClient.STATUS_CODE;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -22,18 +23,18 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @Builder
 @Slf4j
-public class KialiHttpResponse {
+public class RestHttpResponse {
 
-    public static KialiHttpResponse get(URI uri, HttpResponse response)
+    public static RestHttpResponse get(URI uri, HttpResponse response)
             throws UnsupportedOperationException, IOException {
         _logger.debug("{}", response);
-        KialiHttpResponse mcResponse = KialiHttpResponse.builder()
+        RestHttpResponse mcResponse = RestHttpResponse.builder()
                 .uri(uri)
                 .responseCode(response.getStatusLine().getStatusCode())
                 .headers(response.getAllHeaders())
                 .build();
         if (response.getStatusLine().getStatusCode() != STATUS_CODE.NO_CONTENT.getCode()) {
-            mcResponse.entity = IOUtils.toString(response.getEntity().getContent());
+            mcResponse.entity = IOUtils.toString(response.getEntity().getContent(), Charset.forName("UTF-8"));
         }
         return mcResponse;
     }

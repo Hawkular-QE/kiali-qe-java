@@ -1,10 +1,18 @@
 package com.redhat.qe.kiali.ui;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
@@ -170,5 +178,55 @@ public abstract class UIAbstract extends CommonUtils {
                 "}" +
                 "return getPathTo(arguments[0]);";
         return (String) driver.executeScript(jscript, el);
+    }
+
+    protected File captureElementOnScreen(WebElement element) {
+        _logger.debug("element:{}", element);
+
+        File screen = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+        BufferedImage img;
+        try {
+            // create an instance of Buffered Image from captured screenshot
+            img = ImageIO.read(screen);
+        } catch (IOException ex) {
+            _logger.error("Exception, ", ex);
+            throw new RuntimeException("Error on image capture: " + ex.getMessage());
+        }
+
+        int width = element.getSize().getWidth();
+        int height = element.getSize().getHeight();
+
+        // get the Location of WebElement in a Point. this will provide X & Y co-ordinates of the WebElement
+        Point p = element.getLocation();
+
+        int finalHeight = (p.getY() + height) > img.getHeight() ? img.getHeight() - p.getY() : height;
+        int finalWidth = (p.getX() + width) > img.getWidth() ? img.getWidth() - p.getX() : width;
+
+        if (finalHeight != height || finalWidth != width) {
+            _logger.warn(
+                    "Actual widht or height of the element is out of page! "
+                            + "Element {position[x:{}, y:{}], actualSize:[height:{}, width:{}],"
+                            + " finalSize:[height:{}, width:{}]}, screen:[height:{}, width:{}]",
+                    p.getX(), p.getY(), height, width, finalHeight, finalWidth, img.getHeight(), img.getWidth());
+        } else {
+            _logger.debug(
+                    "Element {position[x:{}, y:{}], actualSize:[height:{}, width:{}],"
+                            + " finalSize:[height:{}, width:{}]}, screen:[height:{}, width:{}]",
+                    p.getX(), p.getY(), height, width, finalHeight, finalWidth, img.getHeight(), img.getWidth());
+        }
+
+        // get specific element image
+        BufferedImage finalImage = img.getSubimage(p.getX(), p.getY(), finalWidth, finalHeight);
+
+        try {
+            // write back the image data for element in File object
+            ImageIO.write(finalImage, "png", screen);
+        } catch (IOException ex) {
+            _logger.error("Exception, ", ex);
+            throw new RuntimeException("Error on image copy: " + ex.getMessage());
+        }
+
+        return screen;
     }
 }

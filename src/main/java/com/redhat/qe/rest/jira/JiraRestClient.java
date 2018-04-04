@@ -1,24 +1,23 @@
 package com.redhat.qe.rest.jira;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Map;
 
-import com.redhat.qe.kiali.rest.core.KialiHeader;
-import com.redhat.qe.kiali.rest.core.KialiHttpClient;
-import com.redhat.qe.kiali.rest.core.KialiHttpResponse;
+import com.redhat.qe.rest.core.RestHeader;
+import com.redhat.qe.rest.core.RestHttpClient;
+import com.redhat.qe.rest.core.RestHttpResponse;
 
 /**
  * @author Jeeva Kandasamy (jkandasa)
  */
 
-public class JiraRestClient extends KialiHttpClient {
+public class JiraRestClient extends RestHttpClient {
 
     private String baseUrl;
     private String username;
     private String password;
 
-    private KialiHeader header;
+    private RestHeader header;
 
     public JiraRestClient(String baseUrl, String username, String password) {
         this(baseUrl, username, password, TRUST_HOST_TYPE.DEFAULT);
@@ -37,18 +36,9 @@ public class JiraRestClient extends KialiHttpClient {
     }
 
     private void initClient() {
-        header = KialiHeader.getDefault();
+        header = RestHeader.getDefault();
         header.addJsonContentType();
         header.addAuthorization(username, password);
-    }
-
-    public static ArrayList<String> getList(String values) {
-        ArrayList<String> list = new ArrayList<>();
-        String[] _values = values.split(",");
-        for (String _value : _values) {
-            list.add(_value.trim());
-        }
-        return list;
     }
 
     public Map<String, Object> issue(String idOrName) {
@@ -57,7 +47,7 @@ public class JiraRestClient extends KialiHttpClient {
 
     @SuppressWarnings("unchecked")
     public Map<String, Object> issue(String idOrName, Map<String, Object> queryParameters) {
-        KialiHttpResponse response = doGet(
+        RestHttpResponse response = doGet(
                 baseUrl + MessageFormat.format("/rest/api/latest/issue/{0}", idOrName),
                 queryParameters,
                 header, STATUS_CODE.OK.getCode());
