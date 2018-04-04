@@ -44,7 +44,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         //String suiteName = testContext.getSuite().getName();
         String testName = testContext.getName();
         //return suiteName + "[" + testName + "]";
-        return "[" + testName + "]";
+        return testName;
     }
 
     private void UpdateTestCount(ITestContext testContext, STATUS status) {
@@ -109,14 +109,12 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         updateCookieAllDrivers(ZALENIUM_MESSAGE, "[S] End: " + suite.getName());
         _logger.info("*** END[S]- {}", suite.getName());
         StringBuilder builder = new StringBuilder();
-        builder.append("\n************* SUITE *************************");
+        builder.append("\n\n************** SUITE SUMMARY REPORT **************************");
         builder.append("\n").append(suite.getName()).append(": {").append(SUITE_COUNT).append("}");
-        builder.append("\n************* TESTS **************************");
+        builder.append("\n\n******************* TESTS SUMMARY ****************************");
         for (String key : TEST_COUNTS.keySet()) {
             builder.append("\n").append(key).append(": {").append(TEST_COUNTS.get(key)).append("}");
         }
-        builder.append("\n**********************************************");
-        _logger.info("*** Final status:{}", builder.toString());
         if (SUITE_COUNT.getTotal() != SUITE_COUNT.getSuccess()) {
             updateCookieAllDrivers(ZALENIUM_TEST_STATUS, "false");
         } else {
@@ -130,7 +128,10 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         for (String key : BugTrackerFactory.getBlockers().keySet()) {
             Blocker blocker = BugTrackerFactory.getBlockers().get(key);
             if (blocker.isBlocked()) {
-                knownIssues.append("\n\nName: ").append(blocker.getName());
+                if (knownIssues.length() > 0) {
+                    knownIssues.append("\n");
+                }
+                knownIssues.append("\nName: ").append(blocker.getName());
                 knownIssues.append("\n--------------------------------------------------------------");
                 for (String issueId : blocker.getBugs().keySet()) {
                     knownIssues.append("\n").append(issueId).append(": ").append(blocker.getBugs().get(issueId));
@@ -138,11 +139,11 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
             }
         }
         if (knownIssues.length() > 0) {
-            _logger.info("\n\n************* BLOCKING ISSUES STATUS *************************"
-                    + "{}"
-                    + "\n**************************************************************\n",
-                    knownIssues.toString());
+            builder.append("\n\n************* BLOCKING ISSUES STATUS *************************");
+            builder.append(knownIssues.toString());
         }
+        builder.append("\n*************************** END ******************************\n");
+        _logger.info("*** Summary report:{}", builder.toString());
     }
 
     // test listeners
@@ -164,7 +165,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         _logger.info("*** END[T] - {}", context.getName());
         updateTestCount(context, STATUS.END_TIME, System.currentTimeMillis());
         TestCount testCount = TEST_COUNTS.get(getTestName(context));
-        _logger.info("*** Test run:{name:[{}], {}}", context.getName(), testCount.toString());
+        _logger.info("*** Test run:{name:[{}], {}}\n", context.getName(), testCount.toString());
         try {
             String driverName = DriverFactory.getDriverName(context);
             Driver driver = DriverFactory.getDriver(driverName);
@@ -202,7 +203,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
     public void onTestSuccess(ITestResult result) {
         SUITE_COUNT.incrementSuccess();
         UpdateTestCount(result.getTestContext(), STATUS.SUCCESS);
-        _logger.info("*** SUCCESS[M] - {}", result.getName());
+        _logger.info("*** SUCCESS[M] - {}\n", result.getName());
         try {
             DriverFactory.getDriver(result.getTestContext()).getWebDriver().manage()
                     .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Success: " + result.getName()));
@@ -219,7 +220,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
     public void onTestFailure(ITestResult result) {
         SUITE_COUNT.incrementFailures();
         UpdateTestCount(result.getTestContext(), STATUS.FAILURES);
-        _logger.info("*** FAILED[M] - {}", result.getName());
+        _logger.info("*** FAILED[M] - {}\n", result.getName());
         // report to video test failed
         try {
             DriverFactory.getDriver(result.getTestContext()).getWebDriver().manage()
@@ -248,7 +249,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
     public void onTestSkipped(ITestResult result) {
         SUITE_COUNT.incrementSkipped();
         UpdateTestCount(result.getTestContext(), STATUS.SKIPPED);
-        _logger.info("*** SKIPPED[M] - {}", result.getName());
+        _logger.info("*** SKIPPED[M] - {}\n", result.getName());
         try {
             DriverFactory.getDriver(result.getTestContext()).getWebDriver().manage()
                     .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Skipped: " + result.getName()));
