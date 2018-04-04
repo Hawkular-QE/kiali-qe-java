@@ -77,7 +77,7 @@ public class TestServicesPage extends TestAbstract {
         // TODO: sometime list not loaded properly. need to fix this on pageObject.
         // For now workaround, retry once again
         if (!(namespacesUI.size() > 1)) {
-            _logger.debug("First try failed. Retrying once again. **Fix this on PageObject code**");
+            _logger.warn("First try failed. Retrying once again. **Fix this on PageObject code**");
             filter.sleep(500);
             namespacesUI = filter.options(FILTER.NAMESPACE.getText());
         }
