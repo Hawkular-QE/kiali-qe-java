@@ -30,6 +30,7 @@ blockers:
 * `bug-trackers`: define jira tracking tool details. For now supports only for jira
 * `non-blocking-list`: list of status key words, say this issue is resolved and ready to test.
 * `blockers`: we can specify `testClass` name or `testMethod`(fully qualified name) as a key and a list of bugs/issues details to block this test. If we specify `className`, it blocks all the methods on this class.
+* `@Blockers`: It is possible to add @Blockers annotation on class level or method level. Example, `@Blockers({"JR:KIALI-429", "JR:KIALI-430"})`
 
 ##### How to supply this yaml file?
 We can supply this yaml file in different ways,
