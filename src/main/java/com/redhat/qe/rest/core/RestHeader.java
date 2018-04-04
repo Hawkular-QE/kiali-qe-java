@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.rest.core;
+package com.redhat.qe.rest.core;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -11,10 +11,10 @@ import org.apache.http.HttpMessage;
  * @author Jeeva Kandasamy (jkandasa)
  */
 
-public class KialiHeader {
+public class RestHeader {
 
-    public static KialiHeader getDefault() {
-        KialiHeader header = new KialiHeader();
+    public static RestHeader getDefault() {
+        RestHeader header = new RestHeader();
         header.put("User-Agent", "Mozilla/5.0");
         return header;
     }

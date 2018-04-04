@@ -2,7 +2,7 @@ package com.redhat.qe.kiali.model.rules;
 
 import java.util.List;
 
-import com.redhat.qe.kiali.MyUtils;
+import com.redhat.qe.kiali.KialiUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,13 +31,13 @@ public class Rule {
         }
         Rule rule = (Rule) other;
 
-        if (!MyUtils.equalsCheck(name, rule.name)) {
+        if (!KialiUtils.equalsCheck(name, rule.name)) {
             return false;
         }
-        if (!MyUtils.equalsCheck(namespace, rule.namespace)) {
+        if (!KialiUtils.equalsCheck(namespace, rule.namespace)) {
             return false;
         }
-        if (!MyUtils.equalsCheck(actions, rule.actions)) {
+        if (!KialiUtils.equalsCheck(actions, rule.actions)) {
             return false;
         }
         return true;

@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.ui;
+package com.redhat.qe.bugtracker;
 
 import java.io.File;
 import java.io.IOException;

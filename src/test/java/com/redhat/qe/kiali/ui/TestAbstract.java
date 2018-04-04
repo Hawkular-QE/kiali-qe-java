@@ -11,8 +11,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
 import com.redhat.qe.kiali.model.KeyValue;
-import com.redhat.qe.kiali.rest.KialiRestClient;
 import com.redhat.qe.kiali.ui.pages.RootPage;
+import com.redhat.qe.rest.kiali.KialiRestClient;
 
 /**
  * @author Jeeva Kandasamy (jkandasa)
@@ -25,7 +25,7 @@ public abstract class TestAbstract {
     @BeforeTest
     @BeforeClass
     public void setup(final ITestContext testContext) throws MalformedURLException {
-        driver = DriverFactory.getDriver(testContext);
+       // driver = DriverFactory.getDriver(testContext);
     }
 
     public boolean contains(List<Integer> items, Integer target) {

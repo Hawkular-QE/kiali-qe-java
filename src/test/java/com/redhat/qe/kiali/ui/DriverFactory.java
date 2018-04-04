@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 
-import com.redhat.qe.kiali.rest.KialiRestClient;
+import com.redhat.qe.rest.kiali.KialiRestClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

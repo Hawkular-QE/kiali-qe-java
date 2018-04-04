@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.rest.core;
+package com.redhat.qe.rest.core;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -8,12 +8,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 /**
  * @author Jeeva Kandasamy (jkandasa)
  */
-public class ClientObjectMapper extends ObjectMapper {
+public class RestObjectMapper extends ObjectMapper {
 
     /**  */
     private static final long serialVersionUID = -1702600618371852994L;
 
-    public ClientObjectMapper() {
+    public RestObjectMapper() {
         config(this);
     }
 

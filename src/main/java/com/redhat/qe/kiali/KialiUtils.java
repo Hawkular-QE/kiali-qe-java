@@ -1,10 +1,8 @@
-package com.redhat.qe.kiali.ui;
+package com.redhat.qe.kiali;
 
 import java.io.File;
 import java.util.Map;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,8 +10,23 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Slf4j
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class TestUtils {
+public class KialiUtils {
+
+    public static boolean equalsCheck(Object obj1, Object obj2) {
+        if (obj1 != null) {
+            if (obj2 != null) {
+                return obj1.equals(obj2);
+            } else {
+                return false;
+            }
+        } else {
+            return obj2 == null;
+        }
+    }
+
+    public static Object getValue(Map<String, Object> source, String keyString) {
+        return getValue(source, keyString, null);
+    }
 
     @SuppressWarnings("unchecked")
     public static Object getValue(Map<String, Object> source, String keyString, Object defaultValue) {
@@ -67,4 +80,5 @@ public class TestUtils {
     public static String normalizeSpace(String source, String replacement) {
         return source.replaceAll("\\s+", replacement).trim();
     }
+
 }

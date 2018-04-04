@@ -1,7 +1,7 @@
 package com.redhat.qe.kiali.model.services;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.redhat.qe.kiali.MyUtils;
+import com.redhat.qe.kiali.KialiUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,16 +38,16 @@ public class Service {
             return false;
         }
         Service ser = (Service) other;
-        if (!MyUtils.equalsCheck(name, ser.name)) {
+        if (!KialiUtils.equalsCheck(name, ser.name)) {
             return false;
         }
-        if (!MyUtils.equalsCheck(namespace, ser.namespace)) {
+        if (!KialiUtils.equalsCheck(namespace, ser.namespace)) {
             return false;
         }
-        if (!MyUtils.equalsCheck(replicas, ser.replicas)) {
+        if (!KialiUtils.equalsCheck(replicas, ser.replicas)) {
             return false;
         }
-        if (!MyUtils.equalsCheck(availableReplicas, ser.availableReplicas)) {
+        if (!KialiUtils.equalsCheck(availableReplicas, ser.availableReplicas)) {
             return false;
         }
         return true;

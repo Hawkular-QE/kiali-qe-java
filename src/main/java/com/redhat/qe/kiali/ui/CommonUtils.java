@@ -27,6 +27,10 @@ public class CommonUtils {
         return integerList;
     }
 
+    public String normalizeSpace(String source) {
+        return normalizeSpace(source, "");
+    }
+
     public String normalizeSpace(String source, String replacement) {
         return source.replaceAll("\\s+", replacement).trim();
     }

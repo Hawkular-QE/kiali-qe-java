@@ -1,6 +1,6 @@
 package com.redhat.qe.kiali.ui;
 
-import com.redhat.qe.kiali.rest.KialiRestClient;
+import com.redhat.qe.rest.kiali.KialiRestClient;
 
 import lombok.Builder;
 import lombok.Getter;

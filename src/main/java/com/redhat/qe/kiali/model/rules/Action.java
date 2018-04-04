@@ -2,7 +2,7 @@ package com.redhat.qe.kiali.model.rules;
 
 import java.util.List;
 
-import com.redhat.qe.kiali.MyUtils;
+import com.redhat.qe.kiali.KialiUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +30,7 @@ public class Action {
         }
         Action action = (Action) other;
 
-        if (!MyUtils.equalsCheck(handler, action.handler) || !handler.equals(action.handler)) {
+        if (!KialiUtils.equalsCheck(handler, action.handler) || !handler.equals(action.handler)) {
             return false;
         }
         if (!instances.equals(action.instances)) {

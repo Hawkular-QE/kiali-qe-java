@@ -12,11 +12,11 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
+import com.redhat.qe.bugtracker.Blocker;
+import com.redhat.qe.bugtracker.BugTrackerFactory;
 import com.redhat.qe.kiali.ui.Driver;
 import com.redhat.qe.kiali.ui.DriverFactory;
 import com.redhat.qe.kiali.ui.TestCount;
-import com.redhat.qe.kiali.ui.bugtracker.Blocker;
-import com.redhat.qe.kiali.ui.bugtracker.BugTracker;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -127,13 +127,13 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
 
         // known issues and current status
         StringBuilder knownIssues = new StringBuilder();
-        for (String key : BugTracker.getBlockers().keySet()) {
-            Blocker blocker = BugTracker.getBlockers().get(key);
+        for (String key : BugTrackerFactory.getBlockers().keySet()) {
+            Blocker blocker = BugTrackerFactory.getBlockers().get(key);
             if (blocker.isBlocked()) {
                 knownIssues.append("\n\nName: ").append(blocker.getName());
                 knownIssues.append("\n--------------------------------------------------------------");
-                for (String issueId : blocker.getList().keySet()) {
-                    knownIssues.append("\n").append(issueId).append(": ").append(blocker.getList().get(issueId));
+                for (String issueId : blocker.getBugs().keySet()) {
+                    knownIssues.append("\n").append(issueId).append(": ").append(blocker.getBugs().get(issueId));
                 }
             }
         }

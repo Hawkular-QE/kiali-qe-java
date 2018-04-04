@@ -1,4 +1,4 @@
-package com.redhat.qe.kiali.rest;
+package com.redhat.qe.rest.kiali;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -12,21 +12,21 @@ import com.redhat.qe.kiali.model.rules.RuleDetail;
 import com.redhat.qe.kiali.model.rules.Rules;
 import com.redhat.qe.kiali.model.services.Service;
 import com.redhat.qe.kiali.model.services.Services;
-import com.redhat.qe.kiali.rest.core.KialiHeader;
-import com.redhat.qe.kiali.rest.core.KialiHttpClient;
-import com.redhat.qe.kiali.rest.core.KialiHttpResponse;
+import com.redhat.qe.rest.core.RestHeader;
+import com.redhat.qe.rest.core.RestHttpClient;
+import com.redhat.qe.rest.core.RestHttpResponse;
 
 /**
  * @author Jeeva Kandasamy (jkandasa)
  */
 
-public class KialiRestClient extends KialiHttpClient {
+public class KialiRestClient extends RestHttpClient {
 
     private String baseUrl;
     private String username;
     private String password;
 
-    private KialiHeader header;
+    private RestHeader header;
 
     public KialiRestClient(String baseUrl, String username, String password) {
         this(baseUrl, username, password, TRUST_HOST_TYPE.DEFAULT);
@@ -45,14 +45,14 @@ public class KialiRestClient extends KialiHttpClient {
     }
 
     private void initClient() {
-        header = KialiHeader.getDefault();
+        header = RestHeader.getDefault();
         header.addJsonContentType();
         header.addAuthorization(username, password);
     }
 
     @SuppressWarnings("unchecked")
     public List<Namespace> namespaces() {
-        KialiHttpResponse response = doGet(baseUrl + "/api/namespaces", header, STATUS_CODE.OK.getCode());
+        RestHttpResponse response = doGet(baseUrl + "/api/namespaces", header, STATUS_CODE.OK.getCode());
         return (List<Namespace>) readValue(response.getEntity(),
                 collectionResolver().get(List.class, Namespace.class));
     }
@@ -62,7 +62,7 @@ public class KialiRestClient extends KialiHttpClient {
     }
 
     public String rawPost(String path, HashMap<String, Object> entity) {
-        KialiHttpResponse response = doPost(baseUrl + "/api/namespaces", header, toJsonString(entity),
+        RestHttpResponse response = doPost(baseUrl + "/api/namespaces", header, toJsonString(entity),
                 STATUS_CODE.OK.getCode());
         return (String) readValue(response.getEntity(), simpleResolver().get(String.class));
     }
@@ -70,7 +70,7 @@ public class KialiRestClient extends KialiHttpClient {
     @SuppressWarnings("unchecked")
     public Map<String, Object> serviceMetrics(String namespace, String service,
             Map<String, Object> queryParameters) {
-        KialiHttpResponse response = doGet(
+        RestHttpResponse response = doGet(
                 baseUrl + MessageFormat.format("/api/namespaces/{0}/services/{1}/metrics", namespace, service),
                 header, STATUS_CODE.OK.getCode());
         return (Map<String, Object>) readValue(response.getEntity(),
@@ -78,7 +78,7 @@ public class KialiRestClient extends KialiHttpClient {
     }
 
     public Services services(String namespace) {
-        KialiHttpResponse response = doGet(baseUrl + MessageFormat.format("/api/namespaces/{0}/services", namespace),
+        RestHttpResponse response = doGet(baseUrl + MessageFormat.format("/api/namespaces/{0}/services", namespace),
                 header, STATUS_CODE.OK.getCode());
         return (Services) readValue(response.getEntity(), simpleResolver().get(Services.class));
     }
@@ -98,13 +98,13 @@ public class KialiRestClient extends KialiHttpClient {
 
     @SuppressWarnings("unchecked")
     public Map<String, String> status() {
-        KialiHttpResponse response = doGet(baseUrl + "/api/status", header, STATUS_CODE.OK.getCode());
+        RestHttpResponse response = doGet(baseUrl + "/api/status", header, STATUS_CODE.OK.getCode());
         return (Map<String, String>) readValue(response.getEntity(),
                 mapResolver().get(Map.class, String.class, String.class));
     }
 
     public Rules rules(String namespace) {
-        KialiHttpResponse response = doGet(baseUrl + MessageFormat.format("/api/namespaces/{0}/rules", namespace),
+        RestHttpResponse response = doGet(baseUrl + MessageFormat.format("/api/namespaces/{0}/rules", namespace),
                 header, STATUS_CODE.OK.getCode());
         return (Rules) readValue(response.getEntity(), simpleResolver().get(Rules.class));
     }
@@ -123,7 +123,7 @@ public class KialiRestClient extends KialiHttpClient {
     }
 
     public RuleDetail rule(String namespace, String rule) {
-        KialiHttpResponse response = doGet(
+        RestHttpResponse response = doGet(
                 baseUrl + MessageFormat.format("/api/namespaces/{0}/rules/{1}", namespace, rule),
                 header, STATUS_CODE.OK.getCode());
         return (RuleDetail) readValue(response.getEntity(), simpleResolver().get(RuleDetail.class));

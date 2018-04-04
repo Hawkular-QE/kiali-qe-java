@@ -1,10 +1,10 @@
-package com.redhat.qe.kiali.rest.core.typeresolvers;
+package com.redhat.qe.rest.core.typeresolvers;
 
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.redhat.qe.kiali.rest.core.ClientObjectMapper;
+import com.redhat.qe.rest.core.RestObjectMapper;
 
 /**
  * @author Jeeva Kandasamy (jkandasa)
@@ -15,7 +15,7 @@ public class MapJavaTypeResolver {
     private final ObjectMapper objectMapper;
 
     public MapJavaTypeResolver() {
-        this.objectMapper = new ClientObjectMapper();
+        this.objectMapper = new RestObjectMapper();
     }
 
     /**
