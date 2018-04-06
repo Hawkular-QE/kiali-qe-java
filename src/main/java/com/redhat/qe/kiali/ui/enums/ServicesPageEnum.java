@@ -32,7 +32,8 @@ public class ServicesPageEnum {
 
     public enum SORT implements IEnumString {
         NAMESPACE("Namespace"),
-        SERVICE_NAME("Service Name");
+        SERVICE_NAME("Service Name"),
+        ERROR_RATE("Error Rate");
 
         public static SORT fromText(String text) {
             return (SORT) EnumStringHelper.fromText(text, values());
