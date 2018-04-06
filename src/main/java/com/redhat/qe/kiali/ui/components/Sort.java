@@ -8,8 +8,8 @@ import com.redhat.qe.kiali.ui.UIAbstract;
  */
 
 public class Sort extends UIAbstract {
-    private static final String ORDER_BY_ASC = ".//*[contains(@class, \"sort-direction\") and contains(@class, \"fa-sort-alpha-asc\")]";
-    private static final String ORDER_BY_DESC = ".//*[contains(@class, \"sort-direction\") and contains(@class, \"fa-sort-alpha-desc\")]";
+    private static final String ORDER_BY_ASC = ".//*[contains(@class, \"sort-direction\") and contains(@class, \"-asc\")]";
+    private static final String ORDER_BY_DESC = ".//*[contains(@class, \"sort-direction\") and contains(@class, \"-desc\")]";
 
     private String identifier = "//*[contains(@class, \"form-group\")]/button/*[contains(@class, \"sort-direction\")]/..";
 
