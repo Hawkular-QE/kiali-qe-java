@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 
-import com.redhat.qe.rest.kiali.KialiRestClient;
+import com.redhat.qe.rest.kiali.KialiClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -86,7 +86,7 @@ public class DriverFactory {
         _logger.debug("Selenium grid:[{}]", remoteDriver);
 
         // load REST client
-        KialiRestClient restClient = new KialiRestClient("http://" + hostname, username, password);
+        KialiClient restClient = new KialiClient("http://" + hostname, username, password);
 
         // get version details
         Map<String, String> status = restClient.status();

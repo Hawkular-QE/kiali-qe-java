@@ -20,7 +20,7 @@ import com.redhat.qe.rest.core.RestHttpResponse;
  * @author Jeeva Kandasamy (jkandasa)
  */
 
-public class KialiRestClient extends RestHttpClient {
+public class KialiClient extends RestHttpClient {
 
     private String baseUrl;
     private String username;
@@ -28,11 +28,11 @@ public class KialiRestClient extends RestHttpClient {
 
     private RestHeader header;
 
-    public KialiRestClient(String baseUrl, String username, String password) {
+    public KialiClient(String baseUrl, String username, String password) {
         this(baseUrl, username, password, TRUST_HOST_TYPE.DEFAULT);
     }
 
-    public KialiRestClient(String baseUrl, String username, String password, TRUST_HOST_TYPE trustHostType) {
+    public KialiClient(String baseUrl, String username, String password, TRUST_HOST_TYPE trustHostType) {
         super(trustHostType == null ? TRUST_HOST_TYPE.DEFAULT : trustHostType);
         if (baseUrl.endsWith("/")) {
             this.baseUrl = baseUrl.substring(0, baseUrl.length() - 1);

@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeTest;
 
 import com.redhat.qe.kiali.model.KeyValue;
 import com.redhat.qe.kiali.ui.pages.RootPage;
-import com.redhat.qe.rest.kiali.KialiRestClient;
+import com.redhat.qe.rest.kiali.KialiClient;
 
 /**
  * @author Jeeva Kandasamy (jkandasa)
@@ -82,7 +82,7 @@ public abstract class TestAbstract {
         }
     }
 
-    public KialiRestClient restClient() {
+    public KialiClient restClient() {
         return driver.getRestClient();
     }
 

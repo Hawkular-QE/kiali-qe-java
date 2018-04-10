@@ -28,6 +28,12 @@ public class RestHeader {
         }
     }
 
+    public void addAuthorization(String token) {
+        if (token != null) {
+            map.put("Authorization", "Bearer " + token);
+        }
+    }
+
     public void addJsonContentType() {
         map.put("Content-Type", "application/json");
     }

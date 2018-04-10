@@ -11,7 +11,7 @@ import com.redhat.qe.rest.core.RestHttpResponse;
  * @author Jeeva Kandasamy (jkandasa)
  */
 
-public class JiraRestClient extends RestHttpClient {
+public class JiraClient extends RestHttpClient {
 
     private String baseUrl;
     private String username;
@@ -19,11 +19,11 @@ public class JiraRestClient extends RestHttpClient {
 
     private RestHeader header;
 
-    public JiraRestClient(String baseUrl, String username, String password) {
+    public JiraClient(String baseUrl, String username, String password) {
         this(baseUrl, username, password, TRUST_HOST_TYPE.DEFAULT);
     }
 
-    public JiraRestClient(String baseUrl, String username, String password, TRUST_HOST_TYPE trustHostType) {
+    public JiraClient(String baseUrl, String username, String password, TRUST_HOST_TYPE trustHostType) {
         super(trustHostType == null ? TRUST_HOST_TYPE.DEFAULT : trustHostType);
         if (baseUrl.endsWith("/")) {
             this.baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
