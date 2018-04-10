@@ -1,6 +1,6 @@
 package com.redhat.qe.kiali.ui;
 
-import com.redhat.qe.rest.kiali.KialiRestClient;
+import com.redhat.qe.rest.kiali.KialiClient;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.Getter;
 public class Driver {
     private String kialiHostname;
     private KialiWebDriver webDriver;
-    private KialiRestClient restClient;
+    private KialiClient restClient;
 
     public void tearDown() {
         if (webDriver != null) {

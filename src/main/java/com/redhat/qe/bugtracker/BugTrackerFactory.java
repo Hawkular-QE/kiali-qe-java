@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.redhat.qe.kiali.KialiUtils;
-import com.redhat.qe.rest.jira.JiraRestClient;
+import com.redhat.qe.rest.jira.JiraClient;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class BugTrackerFactory {
     public static final AtomicBoolean INITIALIZE_SUCCESS = new AtomicBoolean(false);
 
     // issue tracker tools REST client
-    private static JiraRestClient jiraCliet = null;
+    private static JiraClient jiraCliet = null;
 
     // bugs map
     private static Map<String, Blocker> BLOCKERS = new HashMap<String, Blocker>();
@@ -108,7 +108,7 @@ public class BugTrackerFactory {
         Map<String, Object> jiraConfig = (Map<String, Object>) KialiUtils.getValue(
                 yamlData, "bug-trackers.jira", new HashMap<String, Object>());
         _logger.debug("JiraConfig:{}", jiraConfig);
-        jiraCliet = new JiraRestClient((String) jiraConfig.get("url"), null, null);
+        jiraCliet = new JiraClient((String) jiraConfig.get("url"), null, null);
     }
 
     private static String currentStatus(String bugId) {
