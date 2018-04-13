@@ -9,6 +9,7 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CommandExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -72,17 +73,22 @@ public class KialiWebDriver extends RemoteWebDriver {
         }
     }
 
+    public void mousehover(WebElement element) {
+        Actions builder = new Actions(this);
+        builder.moveToElement(element).build().perform();
+    }
+
     @Override
     public WebElement findElement(By by) {
         ensurePageSafe();
-        _logger.trace("{}", by.toString());
+        _logger.debug("{}", by.toString());
         return super.findElement(by);
     }
 
     @Override
     public List<WebElement> findElements(By by) {
         ensurePageSafe();
-        _logger.trace("{}", by.toString());
+        _logger.debug("{}", by.toString());
         return super.findElements(by);
     }
 

@@ -55,6 +55,7 @@ public class TestNavbar extends TestAbstract {
             Assert.assertTrue(version.getVersion().trim().length() > 0,
                     "Checking version text size: " + version.toString());
         }
+        // TODO: check versions via REST API
         // close about dialog
         about.close();
     }

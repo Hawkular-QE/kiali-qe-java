@@ -12,29 +12,28 @@ import lombok.ToString;
  * @author Jeeva Kandasamy (jkandasa)
  */
 
-@Data
 @Builder
+@Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Service {
-    private String name;
-    private String namespace;
-    private Health health;
+public class Envoy {
+    private Integer healthy;
+    private Integer total;
+
+    // available only in GUI
+    private String iconText;
 
     @Override
     public boolean equals(Object other) {
         if (other == null || other.getClass() != this.getClass()) {
             return false;
         }
-        Service ser = (Service) other;
-        if (!KialiUtils.equalsCheck(name, ser.name)) {
+        Envoy item = (Envoy) other;
+        if (!KialiUtils.equalsCheck(healthy, item.healthy)) {
             return false;
         }
-        if (!KialiUtils.equalsCheck(namespace, ser.namespace)) {
-            return false;
-        }
-        if (!KialiUtils.equalsCheck(health, ser.health)) {
+        if (!KialiUtils.equalsCheck(total, item.total)) {
             return false;
         }
         return true;
@@ -44,9 +43,8 @@ public class Service {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((namespace == null) ? 0 : namespace.hashCode());
-        result = prime * result + ((health == null) ? 0 : health.hashCode());
+        result = prime * result + ((healthy == null) ? 0 : healthy.hashCode());
+        result = prime * result + ((total == null) ? 0 : total.hashCode());
         return result;
     }
 }

@@ -1,5 +1,7 @@
 package com.redhat.qe.kiali.model.services;
 
+import java.util.List;
+
 import com.redhat.qe.kiali.KialiUtils;
 
 import lombok.AllArgsConstructor;
@@ -12,29 +14,28 @@ import lombok.ToString;
  * @author Jeeva Kandasamy (jkandasa)
  */
 
-@Data
 @Builder
+@Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Service {
-    private String name;
-    private String namespace;
-    private Health health;
+public class Health {
+    private Envoy envoy;
+    private List<DeploymentStatus> deploymentStatuses;
+
+    // available only in GUI
+    private String iconText;
 
     @Override
     public boolean equals(Object other) {
         if (other == null || other.getClass() != this.getClass()) {
             return false;
         }
-        Service ser = (Service) other;
-        if (!KialiUtils.equalsCheck(name, ser.name)) {
+        Health item = (Health) other;
+        if (!KialiUtils.equalsCheck(envoy, item.envoy)) {
             return false;
         }
-        if (!KialiUtils.equalsCheck(namespace, ser.namespace)) {
-            return false;
-        }
-        if (!KialiUtils.equalsCheck(health, ser.health)) {
+        if (!KialiUtils.equalsCheck(deploymentStatuses, item.deploymentStatuses)) {
             return false;
         }
         return true;
@@ -44,9 +45,8 @@ public class Service {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((namespace == null) ? 0 : namespace.hashCode());
-        result = prime * result + ((health == null) ? 0 : health.hashCode());
+        result = prime * result + ((envoy == null) ? 0 : envoy.hashCode());
+        result = prime * result + ((deploymentStatuses == null) ? 0 : deploymentStatuses.hashCode());
         return result;
     }
 }

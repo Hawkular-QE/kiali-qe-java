@@ -19,9 +19,9 @@ public class RestObjectMapper extends ObjectMapper {
 
     public ObjectMapper config(ObjectMapper mapper) {
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true)
-                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .setSerializationInclusion(JsonInclude.Include.NON_NULL);
         return mapper;
     }
 }

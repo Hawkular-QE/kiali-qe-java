@@ -80,7 +80,7 @@ public class ImageCompareUtil {
             int smallestWidth = Math.min(widthOfImage1, widthOfImage2);
             int smallestHeight = Math.min(heightOfImage1, heightOfImage2);
             int p = 0;
-            //calculation of pixel similarity 
+            //calculation of pixel similarity
             for (int a = 0; a < smallestWidth; a++)
             {
                 for (int b = 0; b < smallestHeight; b++)
@@ -90,9 +90,9 @@ public class ImageCompareUtil {
                     if (bufOfImage1[a][b] == bufOfImage2[a][b])
                     {
                         p = p + 1;
-                    }
-                    else
+                    } else {
                         q = q + 1;
+                    }
                 }
             }
             //percentage calculation

@@ -54,14 +54,15 @@ public class TestCount {
         return String.format("%02d:%02d:%02d.%d", hours, minutes, seconds, milliseconds);
     }
 
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder
-                .append("total:").append(success + failures + skipped)
-                .append(", failures:").append(failures)
-                .append(", skipped:").append(skipped)
-                .append(", success:").append(success)
-                .append(", time_taken:[").append(timeTaken(endTime - startTime)).append("]");
+        .append("total:").append(success + failures + skipped)
+        .append(", failures:").append(failures)
+        .append(", skipped:").append(skipped)
+        .append(", success:").append(success)
+        .append(", time_taken:[").append(timeTaken(endTime - startTime)).append("]");
         return builder.toString();
     }
 }
