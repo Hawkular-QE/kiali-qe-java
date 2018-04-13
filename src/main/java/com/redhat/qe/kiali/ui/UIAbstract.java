@@ -138,14 +138,18 @@ public abstract class UIAbstract extends CommonUtils {
         if (parentIdentifier != null) {
             parent = element(parentIdentifier);
         }
+        List<WebElement> elements = null;
         while (waitTime > 0) {
             try {
                 sleep(200);
                 waitTime -= 200;
                 if (parent != null) {
-                    return parent.findElement(By.xpath(childIdentifier));
+                    elements = parent.findElements(By.xpath(childIdentifier));
                 } else {
-                    return driver.findElement(By.xpath(childIdentifier));
+                    elements = driver.findElements(By.xpath(childIdentifier));
+                }
+                if (elements != null && !elements.isEmpty()) {
+                    return elements.get(0);
                 }
             } catch (Exception ex) {
                 _logger.trace("Exception,", ex);
@@ -208,12 +212,12 @@ public abstract class UIAbstract extends CommonUtils {
                     "Actual widht or height of the element is out of page! "
                             + "Element {position[x:{}, y:{}], actualSize:[height:{}, width:{}],"
                             + " finalSize:[height:{}, width:{}]}, screen:[height:{}, width:{}]",
-                            p.getX(), p.getY(), height, width, finalHeight, finalWidth, img.getHeight(), img.getWidth());
+                    p.getX(), p.getY(), height, width, finalHeight, finalWidth, img.getHeight(), img.getWidth());
         } else {
             _logger.debug(
                     "Element {position[x:{}, y:{}], actualSize:[height:{}, width:{}],"
                             + " finalSize:[height:{}, width:{}]}, screen:[height:{}, width:{}]",
-                            p.getX(), p.getY(), height, width, finalHeight, finalWidth, img.getHeight(), img.getWidth());
+                    p.getX(), p.getY(), height, width, finalHeight, finalWidth, img.getHeight(), img.getWidth());
         }
 
         // get specific element image
