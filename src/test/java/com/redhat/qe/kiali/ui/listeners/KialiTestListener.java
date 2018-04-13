@@ -48,7 +48,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
     }
 
     private String getMethodName(ITestResult result) {
-        return result.getTestName() + "." + result.getName();
+        return result.getMethod().getClass().getCanonicalName() + "." + result.getName();
     }
 
     private void UpdateTestCount(ITestContext testContext, STATUS status) {
@@ -158,7 +158,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         updateTestCount(context, STATUS.START_TIME, System.currentTimeMillis());
         try {
             DriverFactory.getDriver(context).getWebDriver().manage()
-            .addCookie(cookie(ZALENIUM_MESSAGE, "[T] Start: " + context.getName()));
+                    .addCookie(cookie(ZALENIUM_MESSAGE, "[T] Start: " + context.getName()));
         } catch (Exception ex) {
             _logger.error("Exception, ", ex);
         }
@@ -197,7 +197,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         _logger.info("*** START[M] - {}", getMethodName(result));
         try {
             DriverFactory.getDriver(result.getTestContext()).getWebDriver().manage()
-            .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Start: " + result.getName()));
+                    .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Start: " + result.getName()));
         } catch (Exception ex) {
             _logger.error("Exception, ", ex);
         }
@@ -210,7 +210,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         _logger.info("*** SUCCESS[M] - {}\n", getMethodName(result));
         try {
             DriverFactory.getDriver(result.getTestContext()).getWebDriver().manage()
-            .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Success: " + result.getName()));
+                    .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Success: " + result.getName()));
         } catch (Exception ex) {
             _logger.error("Exception, ", ex);
         }
@@ -228,7 +228,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         // report to video test failed
         try {
             DriverFactory.getDriver(result.getTestContext()).getWebDriver().manage()
-            .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Failed: " + result.getName()));
+                    .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Failed: " + result.getName()));
         } catch (Exception ex) {
             _logger.error("Exception, ", ex);
         }
@@ -256,7 +256,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
         _logger.info("*** SKIPPED[M] - {}\n", getMethodName(result));
         try {
             DriverFactory.getDriver(result.getTestContext()).getWebDriver().manage()
-            .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Skipped: " + result.getName()));
+                    .addCookie(cookie(ZALENIUM_MESSAGE, "[M] Skipped: " + result.getName()));
         } catch (Exception ex) {
             _logger.error("Exception, ", ex);
         }

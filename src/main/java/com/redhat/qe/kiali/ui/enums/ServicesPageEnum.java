@@ -8,6 +8,7 @@ public class ServicesPageEnum {
 
     public enum FILTER implements IEnumString {
         SERVICE_NAME("Service Name"),
+        ISTIO_SIDECAR("Istio Sidecar"),
         NAMESPACE("Namespace");
 
         public static FILTER fromText(String text) {
@@ -33,6 +34,7 @@ public class ServicesPageEnum {
     public enum SORT implements IEnumString {
         NAMESPACE("Namespace"),
         SERVICE_NAME("Service Name"),
+        ISTIO_SIDECAR("Istio Sidecar"),
         ERROR_RATE("Error Rate");
 
         public static SORT fromText(String text) {

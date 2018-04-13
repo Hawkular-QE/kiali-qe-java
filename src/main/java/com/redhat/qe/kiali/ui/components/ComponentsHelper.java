@@ -82,7 +82,7 @@ public class ComponentsHelper extends UIAbstract {
             // mousehover on icon
             driver.mousehover(healthIcon);
             // read data from tooltip
-            WebElement tooltip = element(HEALTH_TOOLTIP);
+            WebElement tooltip = waitForElement(HEALTH_TOOLTIP);
             List<DeploymentStatus> deploymentStatuses = new ArrayList<DeploymentStatus>();
             for (WebElement depStatus : elements(tooltip, ".//ul/li")) {
                 deploymentStatuses.add(getDeploymentStatus(depStatus));
