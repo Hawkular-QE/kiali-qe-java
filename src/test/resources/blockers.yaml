@@ -9,5 +9,5 @@ bug-trackers:
 
 # blockers
 blockers:
-  com.redhat.qe.kiali.ui.tests.services.TestServicesPage.testAllItems:
+  com.redhat.qe.kiali.ui.tests.services.TestServicesPage:
     - JR:KIALI-551
