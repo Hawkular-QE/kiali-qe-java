@@ -38,7 +38,7 @@ public class ListViewService extends ListView<Service> {
             items.add(Service.builder()
                     .name(text[0])
                     .namespace(text[1])
-                    .health(health)
+                    //.health(health) // TODO: issue with tooltip
                     .build());
         }
         return items;
