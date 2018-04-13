@@ -9,7 +9,5 @@ bug-trackers:
 
 # blockers
 blockers:
-  com.redhat.qe.kiali.ui.tests.menu.TestMenu.testToggle:
-    - JR:KIALI-429
-  com.redhat.qe.kiali.ui.tests.menu.TestNavbar.testAbout:
-    - JR:KIALI-430
+  com.redhat.qe.kiali.ui.tests.services.TestServicesPage.testAllItems
+    - JR:KIALI-551
