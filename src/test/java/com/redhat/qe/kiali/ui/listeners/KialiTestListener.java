@@ -48,7 +48,7 @@ public class KialiTestListener extends TestListenerAdapter implements ISuiteList
     }
 
     private String getMethodName(ITestResult result) {
-        return result.getMethod().getClass().getCanonicalName() + "." + result.getName();
+        return result.getTestContext().getClass().getCanonicalName() + "." + result.getName();
     }
 
     private void UpdateTestCount(ITestContext testContext, STATUS status) {
