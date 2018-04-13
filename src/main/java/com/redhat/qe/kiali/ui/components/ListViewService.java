@@ -33,7 +33,7 @@ public class ListViewService extends ListView<Service> {
             String[] text = element(el, ITEM_TEXT).getText().split("\\n");
 
             //PodStatus pod = componentsHelper.podStatus(el);
-            Health health = componentsHelper.health(el);
+            //Health health = componentsHelper.health(el);
 
             items.add(Service.builder()
                     .name(text[0])
