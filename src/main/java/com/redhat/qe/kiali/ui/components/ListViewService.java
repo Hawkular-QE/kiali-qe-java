@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.openqa.selenium.WebElement;
 
-import com.redhat.qe.kiali.model.services.PodStatus;
+import com.redhat.qe.kiali.model.services.Health;
 import com.redhat.qe.kiali.model.services.Service;
 import com.redhat.qe.kiali.ui.KialiWebDriver;
 
@@ -29,17 +29,16 @@ public class ListViewService extends ListView<Service> {
     @Override
     public List<Service> items() {
         ArrayList<Service> items = new ArrayList<Service>();
-        for (WebElement rawItem : elements(identifier, ITEMS)) {
-            String[] text = element(rawItem, ITEM_TEXT).getText().split("\\n");
+        for (WebElement el : elements(identifier, ITEMS)) {
+            String[] text = element(el, ITEM_TEXT).getText().split("\\n");
 
-            PodStatus pod = componentsHelper.podStatus(rawItem);
+            //PodStatus pod = componentsHelper.podStatus(el);
+            Health health = componentsHelper.health(el);
 
             items.add(Service.builder()
                     .name(text[0])
                     .namespace(text[1])
-                    .replicas(pod.getReplicas())
-                    .availableReplicas(pod.getAvailableReplicas())
-                    .replicasStatus(pod.getStatus())
+                    .health(health)
                     .build());
         }
         return items;

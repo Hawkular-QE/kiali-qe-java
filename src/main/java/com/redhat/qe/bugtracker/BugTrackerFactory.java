@@ -40,6 +40,9 @@ public class BugTrackerFactory {
     // update query parameters for JIRA rest query
     @SuppressWarnings("serial")
     private static Map<String, Object> jiraQueryParms = new HashMap<String, Object>() {
+        /**  */
+        private static final long serialVersionUID = 1L;
+
         {
             put("fields", "resolution,status");
         }
@@ -119,7 +122,7 @@ public class BugTrackerFactory {
             Map<String, Object> bugData = jiraCliet.issue(bugIdFinal, jiraQueryParms);
             // get status from "fields.resolution.name"
             currentState = (String) KialiUtils.getValue(bugData, "fields.resolution.name");
-            // if "fields.resolution" is null, get it from "fields.status.name" 
+            // if "fields.resolution" is null, get it from "fields.status.name"
             if (currentState == null) {
                 currentState = (String) KialiUtils.getValue(bugData, "fields.status.name");
             }

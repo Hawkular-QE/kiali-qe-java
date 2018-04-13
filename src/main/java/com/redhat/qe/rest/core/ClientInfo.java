@@ -1,12 +1,12 @@
 package com.redhat.qe.rest.core;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.redhat.qe.rest.core.RestHttpClient.TRUST_HOST_TYPE;
 
-import lombok.ToString;
 import lombok.Builder;
 import lombok.Getter;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import lombok.ToString;
 
 @Getter
 @Builder

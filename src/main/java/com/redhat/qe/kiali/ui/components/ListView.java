@@ -13,7 +13,7 @@ import com.redhat.qe.kiali.ui.enums.PaginationEnum.PERPAGE;
 
 public abstract class ListView<T> extends UIAbstract {
     protected static final String ITEMS = ".//*[contains(@class, \"list-group-item\")]//*[contains(@class, \"list-view-pf-body\")]";
-    protected static final String ITEM_TEXT = ".//*[contains(@class, \"list-group-item-heading\")]/span";
+    protected static final String ITEM_TEXT = ".//*[contains(@class, \"list-group-item-heading\")]";
 
     protected String SELECT_ITEM = ITEMS + "//span[text()=\"{0}\"]";
     protected String SELECT_ITEM_WITH_NAMESPACE = SELECT_ITEM + "/small[text()=\"{1}\"]";

@@ -56,7 +56,10 @@ public class RootPageEnum {
 
     public enum VERSION implements IEnumString {
         KIALI_UI("kiali-ui"),
-        KIALI_CORE("kiali");
+        KIALI_CORE("kiali"),
+        ISTIO("Istio"),
+        PROMETHEUS("Prometheus"),
+        KUBERNETES("Kubernetes");
 
         public static VERSION fromText(String text) {
             return (VERSION) EnumStringHelper.fromText(text, values());

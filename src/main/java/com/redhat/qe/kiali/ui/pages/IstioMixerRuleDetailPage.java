@@ -47,7 +47,7 @@ public class IstioMixerRuleDetailPage extends RootPage {
         String name1 = null;
         String name2 = null;
         if (nameArr.length == 2) {
-            // to remove only tags, this one => <([^>]+)> 
+            // to remove only tags, this one => <([^>]+)>
             // input[<strong>Handler</strong>: handler], output[handler] => <([^*]+)>:
             name1 = nameArr[0].replaceAll("<([^*]+)>:", "").trim();
             name2 = nameArr[1].replaceAll("<([^*]+)>:", "").trim();

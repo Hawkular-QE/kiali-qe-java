@@ -97,10 +97,10 @@ public class KialiClient extends RestHttpClient {
     }
 
     @SuppressWarnings("unchecked")
-    public Map<String, String> status() {
+    public Map<String, Object> status() {
         RestHttpResponse response = doGet(baseUrl + "/api/status", header, STATUS_CODE.OK.getCode());
-        return (Map<String, String>) readValue(response.getEntity(),
-                mapResolver().get(Map.class, String.class, String.class));
+        return (Map<String, Object>) readValue(response.getEntity(),
+                mapResolver().get(Map.class, String.class, Object.class));
     }
 
     public Rules rules(String namespace) {

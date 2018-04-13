@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 
+import com.redhat.qe.kiali.KialiUtils;
 import com.redhat.qe.rest.kiali.KialiClient;
 
 import lombok.AccessLevel;
@@ -89,10 +90,11 @@ public class DriverFactory {
         KialiClient restClient = new KialiClient("http://" + hostname, username, password);
 
         // get version details
-        Map<String, String> status = restClient.status();
+        Map<String, Object> status = restClient.status();
         String build = MessageFormat.format("Kiali, console:{0}, core:{1}:{2}",
-                status.get("Kiali console version"),
-                status.get("Kiali core version"), status.get("Kiali core commit hash"));
+                KialiUtils.getValue(status, "status.Kiali console version"),
+                KialiUtils.getValue(status, "status.Kiali core version"),
+                KialiUtils.getValue(status, "status.Kiali core commit hash"));
 
         _logger.info("Build: {}", build);
 
