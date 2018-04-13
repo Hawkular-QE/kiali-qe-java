@@ -54,7 +54,8 @@ public abstract class ListView<T> extends UIAbstract {
         ArrayList<T> items = new ArrayList<T>();
         pagination.moveToFirstPage();
         // set per page to maximum size
-        pagination.perPage(PERPAGE.values()[PERPAGE.values().length - 1].getValue());
+        // TODO: set to maximum size. right now problem with focus
+        pagination.perPage(PERPAGE.values()[1].getValue());
         for (int page = 1; page <= pagination.pages(); page++) {
             pagination.moveToPage(page);
             items.addAll(items());
